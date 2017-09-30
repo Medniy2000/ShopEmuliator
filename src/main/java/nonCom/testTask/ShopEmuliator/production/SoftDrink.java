@@ -1,4 +1,4 @@
-package nonCom.testTask.ShopEmuliator.model;
+package nonCom.testTask.ShopEmuliator.production;
 
 import java.util.Objects;
 

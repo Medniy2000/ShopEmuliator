@@ -1,4 +1,4 @@
-package nonCom.testTask.ShopEmuliator.model;
+package nonCom.testTask.ShopEmuliator.production;
 
 /**
  * Created by medniy on 29.09.2017.

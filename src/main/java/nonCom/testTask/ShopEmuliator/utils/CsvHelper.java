@@ -1,6 +1,6 @@
 package nonCom.testTask.ShopEmuliator.utils;
 
-import nonCom.testTask.ShopEmuliator.model.*;
+import nonCom.testTask.ShopEmuliator.production.*;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
@@ -19,7 +19,7 @@ import java.util.List;
 public class CsvHelper {
 
     private static final CSVFormat DRINKS_FORMAT = CSVFormat.RFC4180.withHeader().withDelimiter(',');
-    public static final String CSV_FILE_PATH = Paths.get(".", "src/main/resources/store", "drinks.csv").normalize().toFile().getAbsolutePath();
+    private static final String CSV_FILE_PATH = Paths.get(".", "src/main/resources/store", "drinks.csv").normalize().toFile().getAbsolutePath();
 
     private static CsvHelper ourInstance = new CsvHelper();
 
@@ -30,11 +30,11 @@ public class CsvHelper {
         return ourInstance;
     }
 
-    public List<Drink> readDrinksFromCSV(String csvFilePath) {
+    public List<Drink> readDrinksFromCSV(){
 
         List<Drink> result = new ArrayList<>();
 
-        try (CSVParser parser = new CSVParser(new FileReader(csvFilePath), DRINKS_FORMAT)) {
+        try (CSVParser parser = new CSVParser(new FileReader(CSV_FILE_PATH), DRINKS_FORMAT)) {
             for (CSVRecord record : parser) {
 
                 String entityType = record.get(2);

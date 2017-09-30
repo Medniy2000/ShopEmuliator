@@ -1,6 +1,7 @@
 package nonCom.testTask.ShopEmuliator;
 
-import nonCom.testTask.ShopEmuliator.model.*;
+import nonCom.testTask.ShopEmuliator.finances.PaymentAccount;
+import nonCom.testTask.ShopEmuliator.production.*;
 import nonCom.testTask.ShopEmuliator.utils.CsvHelper;
 
 import java.util.ArrayList;
@@ -34,8 +35,13 @@ public class Tester {
 
         csvHelper.writeDrinksToCSV(drinks);
 
-        for(Drink drink : csvHelper.readDrinksFromCSV(CsvHelper.CSV_FILE_PATH)){
+        for(Drink drink : csvHelper.readDrinksFromCSV()){
             System.out.println(drink);
         }
+
+        PaymentAccount paymentAccount = PaymentAccount.getInstance();
+
+        System.out.println(paymentAccount.getAmountOfMoney());
+        paymentAccount.saveMoney();
     }
 }
