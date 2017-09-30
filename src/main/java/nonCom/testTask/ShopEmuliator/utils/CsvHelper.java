@@ -17,20 +17,17 @@ import java.util.List;
  * Created by medniy on 30.09.2017.
  */
 public class CsvHelper {
-    
-    private static CsvHelper ourInstance = new CsvHelper();
 
     private static final CSVFormat DRINKS_FORMAT = CSVFormat.RFC4180.withHeader().withDelimiter(',');
-
     public static final String CSV_FILE_PATH = Paths.get(".", "src/main/resources/store", "drinks.csv").normalize().toFile().getAbsolutePath();
 
+    private static CsvHelper ourInstance = new CsvHelper();
 
+    private CsvHelper() {
+    }
 
     public static CsvHelper getInstance() {
         return ourInstance;
-    }
-
-    private CsvHelper() {
     }
 
     public List<Drink> readDrinksFromCSV(String csvFilePath) {
@@ -73,7 +70,7 @@ public class CsvHelper {
             }
 
         } catch (IOException e) {
-            //TODO print message
+            ConsoleHelper.writeMessage(e.getMessage());
         }
 
         return result;
@@ -109,8 +106,7 @@ public class CsvHelper {
 
         } catch (IOException e) {
             result = false;
-            e.printStackTrace();
-            //TODO print message
+            ConsoleHelper.writeMessage(e.getMessage());
         }
         return result;
     }
