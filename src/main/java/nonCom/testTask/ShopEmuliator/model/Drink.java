@@ -8,14 +8,14 @@ import java.util.Objects;
 public class Drink {
 
     protected String name;
-    protected Integer purchasePrice;
+    protected Double purchasePrice;
     protected Float capacity;
     protected Integer availablePcs;
 
     public Drink() {
     }
 
-    public Drink( String name, Integer purchasePrice, Float capacity, Integer availablePcs) {
+    public Drink( String name, Double purchasePrice, Float capacity, Integer availablePcs) {
         this.purchasePrice = purchasePrice;
         this.name = name;
         this.capacity = capacity;
@@ -30,11 +30,11 @@ public class Drink {
         this.name = name;
     }
 
-    public Integer getPurchasePrice() {
+    public Double getPurchasePrice() {
         return purchasePrice;
     }
 
-    public void setPurchasePrice(Integer purchasePrice) {
+    public void setPurchasePrice(Double purchasePrice) {
         this.purchasePrice = purchasePrice;
     }
 

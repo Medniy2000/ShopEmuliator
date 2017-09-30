@@ -7,5 +7,19 @@ public enum AlcoholDrinkClassification {
     WINE,
     STRONG_ALCOHOL,
     BEER,
-    LIQUOR
+    LIQUOR;
+
+    public static boolean isAlcoholDrink(String alchoholDrink) {
+        if (WINE.name().equals(alchoholDrink)){
+            return true;
+        }else if (STRONG_ALCOHOL.name().equals(alchoholDrink)){
+            return true;
+        }else if (BEER.name().equals(alchoholDrink)){
+            return true;
+        }else if (LIQUOR.name().equals(alchoholDrink)){
+            return true;
+        }
+        return false;
+    }
+
 }

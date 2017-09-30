@@ -11,7 +11,10 @@ public class SoftDrink extends Drink {
 
     private String contains;
 
-    public SoftDrink(String name, Integer purchasePrice, SoftDrinkGroup softDrinkGroup, Float capacity, String contains,Integer availablePcs) {
+    public SoftDrink() {
+    }
+
+    public SoftDrink(String name, Double purchasePrice, SoftDrinkGroup softDrinkGroup, Float capacity, String contains,Integer availablePcs) {
         super(name, purchasePrice, capacity, availablePcs);
         this.softDrinkGroup = softDrinkGroup;
         this.contains = contains;

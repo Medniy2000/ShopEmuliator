@@ -11,7 +11,10 @@ public class AlcoholDrink extends Drink{
 
     private Float strength;
 
-    public AlcoholDrink(String name, Integer purchasePrice, AlcoholDrinkClassification classification, Float capacity, Float strength, Integer availablePcs) {
+    public AlcoholDrink() {
+    }
+
+    public AlcoholDrink(String name, Double purchasePrice, AlcoholDrinkClassification classification, Float capacity, Float strength, Integer availablePcs) {
         super(name, purchasePrice, capacity, availablePcs);
         this.classification = classification;
         this.strength = strength;
