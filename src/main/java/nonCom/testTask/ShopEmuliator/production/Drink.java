@@ -15,7 +15,7 @@ public class Drink {
     public Drink() {
     }
 
-    public Drink( String name, Double purchasePrice, Float capacity, Integer availablePcs) {
+    public Drink(String name, Double purchasePrice, Float capacity, Integer availablePcs) {
         this.purchasePrice = purchasePrice;
         this.name = name;
         this.capacity = capacity;
@@ -52,6 +52,14 @@ public class Drink {
 
     public void setAvailablePcs(Integer availablePcs) {
         this.availablePcs = availablePcs;
+    }
+
+    public void increaseAvailablePcs(int availablePcs) {
+        availablePcs += availablePcs;
+    }
+
+    public void decreaseAvailablePcs(int availablePcs) {
+        availablePcs -= availablePcs;
     }
 
     @Override

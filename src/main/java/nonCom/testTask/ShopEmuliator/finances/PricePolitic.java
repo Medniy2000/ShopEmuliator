@@ -3,12 +3,12 @@ package nonCom.testTask.ShopEmuliator.finances;
 /**
  * Created by medniy on 01.10.2017.
  */
-public class PricePerCent {
+public class PricePolitic {
 
     private String name;
     private int perCent;
 
-    public PricePerCent(String name, int perCent) {
+    public PricePolitic(String name, int perCent) {
         this.name = name;
         this.perCent = perCent;
     }
@@ -23,9 +23,7 @@ public class PricePerCent {
 
     @Override
     public String toString() {
-        return "PricePerCent{" +
-                "name='" + name +
-                ", perCent=" + perCent + "% from purchase price" +
-                '}';
+        return "     " + name + ": " + perCent + "% from purchase price";
+
     }
 }

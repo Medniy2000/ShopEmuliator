@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Created by medniy on 29.09.2017.
  */
-public class AlcoholDrink extends Drink{
+public class AlcoholDrink extends Drink {
 
     private AlcoholDrinkClassification classification;
 
@@ -53,13 +53,7 @@ public class AlcoholDrink extends Drink{
 
     @Override
     public String toString() {
-        return "AlcoholDrink{" +
-                "name=" + name +
-                ", purchasePrice=" + purchasePrice +
-                ", classification=" + classification +
-                ", capacity="+ capacity +
-                ", strength=" + strength +
-                ", availablePcs=" + availablePcs +
-                '}';
+        return "     " + name + ", " + classification + ", " + capacity + ", " + strength + "%";
+
     }
 }

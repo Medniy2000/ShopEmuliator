@@ -14,7 +14,7 @@ public class SoftDrink extends Drink {
     public SoftDrink() {
     }
 
-    public SoftDrink(String name, Double purchasePrice, SoftDrinkGroup softDrinkGroup, Float capacity, String contains,Integer availablePcs) {
+    public SoftDrink(String name, Double purchasePrice, SoftDrinkGroup softDrinkGroup, Float capacity, String contains, Integer availablePcs) {
         super(name, purchasePrice, capacity, availablePcs);
         this.softDrinkGroup = softDrinkGroup;
         this.contains = contains;
@@ -53,13 +53,7 @@ public class SoftDrink extends Drink {
 
     @Override
     public String toString() {
-        return "SoftDrink{" +
-                "name=" + name +
-                ", purchasePrice=" + purchasePrice +
-                ", softDrinkGroup=" + softDrinkGroup +
-                ", capacity="+ capacity +
-                ", contains=" + contains +
-                ", availablePcs=" + availablePcs +
-                '}';
+        return "     " + name + ", " + softDrinkGroup + ", " + capacity + ", contains:" + contains;
+
     }
 }

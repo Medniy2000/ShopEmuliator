@@ -17,14 +17,14 @@ public class PaymentAccount {
 
     private static PaymentAccount ourInstance = new PaymentAccount();
 
-    private volatile int amountOfMoney;
+    private volatile double amountOfMoney;
 
     public static PaymentAccount getInstance() {
         return ourInstance;
     }
 
     private PaymentAccount() {
-        int valueFromFile = readAmmountOfMoneyFromFile();
+        double valueFromFile = readAmmountOfMoneyFromFile();
         if (valueFromFile == -1) {
             amountOfMoney = DEFAULT_MOMEY_AMOUNT;
         } else {
@@ -33,7 +33,7 @@ public class PaymentAccount {
 
     }
 
-    private int readAmmountOfMoneyFromFile() {
+    private double readAmmountOfMoneyFromFile() {
         File file = new File(MONEY_FILE_PATH);
         String value1 = "";
         Integer value2 = -1;
@@ -41,20 +41,22 @@ public class PaymentAccount {
             value1 = FileUtils.readFileToString(file);
             value2 = Integer.valueOf(value1);
         } catch (Exception e) {
-            ConsoleHelper.writeMessage(e.getMessage());
+            //ConsoleHelper.writeMessage(e.getMessage());
         }
 
         return value1.equals("not used") ? -1 : value2;
     }
 
-    public void deposit(int amount) {
+    public void deposit(double amount) {
         amountOfMoney += amount;
+        ConsoleHelper.writeMessage("+" +amount + " for amount of money");
     }
 
-    public boolean withdraw(int amount) {
+    public boolean withdraw(double amount) {
 
         if (amountOfMoney >= amount) {
             amountOfMoney -= amount;
+            ConsoleHelper.writeMessage("-" + Math.round(amount) + " from amount of money");
             return true;
         }
 
@@ -72,7 +74,7 @@ public class PaymentAccount {
         return true;
     }
 
-    public int getAmountOfMoney() {
+    public double getAmountOfMoney() {
         return amountOfMoney;
     }
 }
