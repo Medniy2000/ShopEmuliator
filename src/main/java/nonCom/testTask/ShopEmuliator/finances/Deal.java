@@ -16,7 +16,7 @@ import static nonCom.testTask.ShopEmuliator.Shop.DATE_TIME_ZONE;
  */
 public class Deal {
 
-    private static final DateTimeFormatter format = DateTimeFormat.forPattern("MM-dd-YYYY hh:mm");
+    private static final DateTimeFormatter format = DateTimeFormat.forPattern("MM-dd-YYYY HH:MM");
     private DateTime date;
 
     private Double totalPrice;
@@ -35,6 +35,10 @@ public class Deal {
 
     public Double getTotalPrice() {
         return totalPrice;
+    }
+
+    public Map<Drink, List<Number>> getShopBucket() {
+        return shopBucket;
     }
 
     private String bucketToString() {

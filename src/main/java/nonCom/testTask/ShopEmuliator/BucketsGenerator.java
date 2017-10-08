@@ -46,6 +46,18 @@ public class BucketsGenerator extends Observable implements Runnable {
         }
     }
 
+//    private synchronized boolean isAvailable(Drink drink, int count) {
+//
+//        int index = availableDrinks.indexOf(drink);
+//        Drink availableDrink = availableDrinks.get(index);
+//        int available = availableDrink.getAvailablePcs();
+//
+//        if (available >= count) {
+//            return true;
+//        }
+//        return false;
+//    }
+
     private Map<Drink, Integer> generateBucket() {
 
         Map<Drink, Integer> result = new HashMap<>();
@@ -55,16 +67,25 @@ public class BucketsGenerator extends Observable implements Runnable {
 
             int drinkNumer = getAmount(0, availableDrinks.size() - 1);
             Drink drink = availableDrinks.get(drinkNumer);
-
-            int available = drink.getAvailablePcs();
             int count = getAmount(1, itemCount);
 
-            if (available >= count) {
+            if (isAvailable(drink,count)) {
                 itemCount -= count;
                 result.put(drink, count);
             }
         }
         return result;
+    }
+    private synchronized boolean isAvailable(Drink drink, int count) {
+
+        int index = availableDrinks.indexOf(drink);
+        Drink availableDrink = availableDrinks.get(index);
+        int available = availableDrink.getAvailablePcs();
+
+        if (available >= count) {
+            return true;
+        }
+        return false;
     }
 
     private int getAmount(int min, int max) {
@@ -85,7 +106,7 @@ public class BucketsGenerator extends Observable implements Runnable {
 
     public long initialDelay() {
         DateTime dateTime = new DateTime(DATE_TIME_ZONE);
-        int shopOpenMinutes = SHOP_OPEN_HOUR *60;
+        int shopOpenMinutes = SHOP_OPEN_HOUR *60+ 16;
 
         int minuteOfDay = dateTime.getMinuteOfDay();
 

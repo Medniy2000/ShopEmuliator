@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Drink {
 
     protected String name;
-    protected Double purchasePrice;
+    protected volatile Double purchasePrice;
     protected Float capacity;
     protected Integer availablePcs;
 

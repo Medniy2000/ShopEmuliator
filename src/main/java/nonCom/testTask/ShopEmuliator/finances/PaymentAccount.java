@@ -15,11 +15,15 @@ public class PaymentAccount {
     private static final String MONEY_FILE_PATH = Paths.get(".", "src/main/resources/finances", "AmountOfMoney.txt").normalize().toFile().getAbsolutePath();
     private static final Integer DEFAULT_MONEY_AMOUNT = 1000;
 
-    private static PaymentAccount ourInstance = new PaymentAccount();
+    private static PaymentAccount ourInstance = null;
 
     private volatile double amountOfMoney;
 
-    public static PaymentAccount getInstance() {
+    public static synchronized PaymentAccount getInstance() {
+        if (ourInstance == null){
+            ourInstance = new PaymentAccount();
+        }
+
         return ourInstance;
     }
 

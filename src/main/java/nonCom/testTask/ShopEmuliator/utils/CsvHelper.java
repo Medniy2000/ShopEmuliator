@@ -21,12 +21,15 @@ public class CsvHelper {
     private static final CSVFormat DRINKS_FORMAT = CSVFormat.RFC4180.withHeader().withDelimiter(',');
     private static final String CSV_FILE_PATH = Paths.get(".", "src/main/resources/store", "drinks.csv").normalize().toFile().getAbsolutePath();
 
-    private static CsvHelper ourInstance = new CsvHelper();
+    private static CsvHelper ourInstance = null;
 
     private CsvHelper() {
     }
 
     public static CsvHelper getInstance() {
+        if (ourInstance==null){
+            ourInstance = new CsvHelper();
+        }
         return ourInstance;
     }
 

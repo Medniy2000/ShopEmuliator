@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Created by medniy on 01.10.2017.
  */
-public class PayMaster implements Observer {
+public class PayMaster extends Observable implements Observer {
     public static final PricePolitic STANDARD = new PricePolitic("STANDART", 10);
     public static final PricePolitic WEEKENDS = new PricePolitic("WEEKENDS", 15);
     public static final PricePolitic PERIOD = new PricePolitic("PERIOD 18:00-20.00", 8);
@@ -16,22 +16,21 @@ public class PayMaster implements Observer {
 
     private PaymentAccount paymentAccount = PaymentAccount.getInstance();
 
-    private List<Drink> avialableDrinks;
+    public PayMaster() {
 
-    public PayMaster(List<Drink> avialableDrinks) {
-        this.avialableDrinks = new ArrayList<>(avialableDrinks);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        Map<Drink, Integer> bucket = (Map) arg;
+        Map<Drink, Integer> bucket = (Map<Drink, Integer>) arg;
         if (!bucket.isEmpty()) {
             Deal deal = makeDeal(bucket);
             paymentAccount.deposit(deal.getTotalPrice());
             ConsoleHelper.writeMessage(deal.toString());
+            // send deal in statistic
+            setChanged();
+            notifyObservers(deal);
         }
-
-
     }
 
     // key=Drink, value = count;
@@ -46,7 +45,6 @@ public class PayMaster implements Observer {
         if (MoreThanTwo) {
             pricePolitics.add(FROM_TWO_PIECES);
         }
-
 
         if (isWeekEnd()) {
             pricePolitics.add(WEEKENDS);
@@ -93,10 +91,6 @@ public class PayMaster implements Observer {
             price = (double) Math.round(price * 100) / 100;
             value.add(0, count);
             value.add(1, price);
-
-            // decrease available pieces
-            int index = avialableDrinks.indexOf(drink);
-            avialableDrinks.get(index).decreaseAvailablePcs(count);
 
             result.put(drink, value);
         }
