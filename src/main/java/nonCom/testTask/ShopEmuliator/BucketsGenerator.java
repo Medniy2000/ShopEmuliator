@@ -1,8 +1,12 @@
 package nonCom.testTask.ShopEmuliator;
 
 import nonCom.testTask.ShopEmuliator.production.Drink;
+import org.joda.time.DateTime;
 
 import java.util.*;
+
+import static nonCom.testTask.ShopEmuliator.Shop.SHOP_OPEN_HOUR;
+import static nonCom.testTask.ShopEmuliator.Shop.DATE_TIME_ZONE;
 
 /**
  * Created by medniy on 07.10.2017.
@@ -19,6 +23,7 @@ public class BucketsGenerator extends Observable implements Runnable {
     public void run() {
         if (availableDrinks.isEmpty()) return;
         try {
+
             while (!Thread.currentThread().isInterrupted()) {
 
                 int bucketCount = getAmount(1, 10);
@@ -38,7 +43,6 @@ public class BucketsGenerator extends Observable implements Runnable {
                 Thread.sleep(BUCKET_CREATING_INTERVAL - durationOfCreating);
             }
         } catch (InterruptedException e) {
-
         }
     }
 
@@ -77,6 +81,20 @@ public class BucketsGenerator extends Observable implements Runnable {
         c.set(Calendar.HOUR, 1);
 
         return c.getTime().getTime();
+    }
+
+    public long initialDelay() {
+        DateTime dateTime = new DateTime(DATE_TIME_ZONE);
+        int shopOpenMinutes = SHOP_OPEN_HOUR *60;
+
+        int minuteOfDay = dateTime.getMinuteOfDay();
+
+        if (minuteOfDay <= shopOpenMinutes) {
+           int result = shopOpenMinutes - minuteOfDay;
+            return result;
+        }
+
+        return 24*60 - minuteOfDay + shopOpenMinutes;
     }
 
 }

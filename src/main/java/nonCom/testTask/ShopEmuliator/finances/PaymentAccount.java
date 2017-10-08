@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 public class PaymentAccount {
 
     private static final String MONEY_FILE_PATH = Paths.get(".", "src/main/resources/finances", "AmountOfMoney.txt").normalize().toFile().getAbsolutePath();
-    private static final Integer DEFAULT_MOMEY_AMOUNT = 1000;
+    private static final Integer DEFAULT_MONEY_AMOUNT = 1000;
 
     private static PaymentAccount ourInstance = new PaymentAccount();
 
@@ -26,7 +26,7 @@ public class PaymentAccount {
     private PaymentAccount() {
         double valueFromFile = readAmmountOfMoneyFromFile();
         if (valueFromFile == -1) {
-            amountOfMoney = DEFAULT_MOMEY_AMOUNT;
+            amountOfMoney = DEFAULT_MONEY_AMOUNT;
         } else {
             amountOfMoney = valueFromFile;
         }
