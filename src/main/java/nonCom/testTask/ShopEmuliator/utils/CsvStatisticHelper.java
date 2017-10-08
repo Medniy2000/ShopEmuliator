@@ -159,6 +159,7 @@ public class CsvStatisticHelper {
 
     private static String getMonthForInt(int num) {
         String month = "wrong";
+        num -= 1;
         DateFormatSymbols dfs = new DateFormatSymbols(Locale.ENGLISH);
         String[] months = dfs.getMonths();
         if (num >= 0 && num <= 11) {
