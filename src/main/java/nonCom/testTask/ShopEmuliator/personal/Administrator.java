@@ -1,21 +1,18 @@
-package nonCom.testTask.ShopEmuliator;
+package nonCom.testTask.ShopEmuliator.personal;
 
 import nonCom.testTask.ShopEmuliator.finances.PaymentAccount;
 import nonCom.testTask.ShopEmuliator.production.Drink;
+import nonCom.testTask.ShopEmuliator.utils.ConsoleHelper;
 import nonCom.testTask.ShopEmuliator.utils.CsvHelper;
-import nonCom.testTask.ShopEmuliator.utils.PurchaseWraper;
-import org.joda.time.DateTime;
 
 import java.util.*;
-
-import static nonCom.testTask.ShopEmuliator.Shop.DATE_TIME_ZONE;
 
 
 /**
  * Created by medniy on 07.10.2017.
  */
 public class Administrator extends Observable implements Runnable {
-    private static int PURCHASE_COUNT = 15;
+    private static int PURCHASE_COUNT = 150;
     private static int AVAILABLE_PCS_LIMIT = 10;
 
     private PaymentAccount paymentAccount = PaymentAccount.getInstance();
@@ -28,8 +25,10 @@ public class Administrator extends Observable implements Runnable {
     public void run() {
 
         makePurchases();
+        ConsoleHelper.writeMessage("Purchases Made!");
         sleep(1000);
         makeSaves();
+        ConsoleHelper.writeMessage("All data saved!");
 
         if (isLastDayOfMonth()){
             //TODO save statistic in txt file
@@ -41,7 +40,7 @@ public class Administrator extends Observable implements Runnable {
 
         Map<Drink, List<Number>> purchased = new HashMap<>();
 
-        for (Drink drink : Store.getInstance().getAvailableDrinks()) {
+        for (Drink drink : Storekeeper.getInstance().getAvailableDrinks()) {
 
             if (drink.getAvailablePcs() <= AVAILABLE_PCS_LIMIT) {
 
@@ -57,24 +56,23 @@ public class Administrator extends Observable implements Runnable {
             }
         }
         // send purchases in statistic
-        PurchaseWraper wraper = new PurchaseWraper(purchased);
         setChanged();
-        notifyObservers(wraper);
+        notifyObservers(purchased);
     }
 
     private void makeSaves() {
         //save money
         paymentAccount.saveMoney();
+
         sleep(400);
 
         // save available drinks
-        List<Drink> drinks = Store.getInstance().getAvailableDrinks();
-        CsvHelper.getInstance().writeDrinksToCSV(drinks);
+        Storekeeper.getInstance().saveDrinks();
 
         sleep(400);
 
         // save statistic in file
-        StatisticManager.getInstance().saveInCsv();
+        StatisticManager.getInstance().saveStatistic();
 
         sleep(400);
     }
@@ -86,9 +84,9 @@ public class Administrator extends Observable implements Runnable {
         return lastDayOfMonth>=curentDayOfMonth;
     }
 
-    private void sleep(int miliseconds) {
+    private void sleep(int milliseconds) {
         try {
-            Thread.sleep(miliseconds);
+            Thread.sleep(milliseconds);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

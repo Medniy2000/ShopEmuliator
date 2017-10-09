@@ -23,7 +23,6 @@ public class CsvHelper {
 
     private static CsvHelper ourInstance = null;
 
-
     private CsvHelper() {
     }
 

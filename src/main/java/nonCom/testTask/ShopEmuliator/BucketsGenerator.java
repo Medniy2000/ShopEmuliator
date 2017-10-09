@@ -1,5 +1,6 @@
 package nonCom.testTask.ShopEmuliator;
 
+import nonCom.testTask.ShopEmuliator.personal.Storekeeper;
 import nonCom.testTask.ShopEmuliator.production.Drink;
 import org.joda.time.DateTime;
 
@@ -23,7 +24,7 @@ public class BucketsGenerator extends Observable implements Runnable {
 
     @Override
     public void run() {
-        if (Store.getInstance().getAvailableDrinks().isEmpty()) return;
+        if (Storekeeper.getInstance().getAvailableDrinks().isEmpty()) return;
         try {
 
             while (!Thread.currentThread().isInterrupted()) {
@@ -55,8 +56,8 @@ public class BucketsGenerator extends Observable implements Runnable {
 
         while (itemCount > 0) {
 
-            int drinkNumer = getAmount(0, Store.getInstance().getAvailableDrinks().size() - 1);
-            Drink drink = Store.getInstance().getAvailableDrinks().get(drinkNumer);
+            int drinkNumer = getAmount(0, Storekeeper.getInstance().getAvailableDrinks().size() - 1);
+            Drink drink = Storekeeper.getInstance().getAvailableDrinks().get(drinkNumer);
             int count = getAmount(1, itemCount);
 
             if (isAvailable(drink, count)) {
@@ -69,8 +70,8 @@ public class BucketsGenerator extends Observable implements Runnable {
 
     private boolean isAvailable(Drink drink, int count) {
 
-        int index = Store.getInstance().getAvailableDrinks().indexOf(drink);
-        Drink availableDrink = Store.getInstance().getAvailableDrinks().get(index);
+        int index = Storekeeper.getInstance().getAvailableDrinks().indexOf(drink);
+        Drink availableDrink = Storekeeper.getInstance().getAvailableDrinks().get(index);
         int available = availableDrink.getAvailablePcs();
 
         if (available >= count) {

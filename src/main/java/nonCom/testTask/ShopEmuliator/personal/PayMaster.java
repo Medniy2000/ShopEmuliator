@@ -1,5 +1,8 @@
-package nonCom.testTask.ShopEmuliator.finances;
+package nonCom.testTask.ShopEmuliator.personal;
 
+import nonCom.testTask.ShopEmuliator.finances.Deal;
+import nonCom.testTask.ShopEmuliator.finances.PaymentAccount;
+import nonCom.testTask.ShopEmuliator.finances.PricePolitic;
 import nonCom.testTask.ShopEmuliator.production.Drink;
 import nonCom.testTask.ShopEmuliator.utils.ConsoleHelper;
 

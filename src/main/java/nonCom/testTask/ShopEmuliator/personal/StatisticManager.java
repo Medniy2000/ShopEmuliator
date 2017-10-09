@@ -1,10 +1,8 @@
-package nonCom.testTask.ShopEmuliator;
+package nonCom.testTask.ShopEmuliator.personal;
 
 import nonCom.testTask.ShopEmuliator.finances.Deal;
-import nonCom.testTask.ShopEmuliator.finances.PayMaster;
 import nonCom.testTask.ShopEmuliator.production.Drink;
 import nonCom.testTask.ShopEmuliator.utils.CsvStatisticHelper;
-import nonCom.testTask.ShopEmuliator.utils.PurchaseWraper;
 
 import java.util.*;
 
@@ -43,16 +41,16 @@ public class StatisticManager implements Observer {
             Deal deal = (Deal) arg;
             putInNote(deal);
         } else if (o instanceof Administrator) {
-            PurchaseWraper wraper = (PurchaseWraper) arg;
-            Map<Drink, List<Number>> purchaced = wraper.getPurchased();
+            Map<Drink, List<Number>> purchaced = (Map<Drink, List<Number>>) arg;
             addToPurchases(purchaced);
         }
 
     }
 
-    public void saveInCsv() {
-        csvStatisticHelper.writeStatisticToCSV(sales, CSV_SALES_FILE_PATH, "PROFIT");
-        csvStatisticHelper.writeStatisticToCSV(purchases, CSV_PURCHASES_FILE_PATH, "PURCHASE_LOSES");
+    public boolean saveStatistic() {
+        boolean b1 = csvStatisticHelper.writeStatisticToCSV(sales, CSV_SALES_FILE_PATH, "PROFIT");
+        boolean b2 = csvStatisticHelper.writeStatisticToCSV(purchases, CSV_PURCHASES_FILE_PATH, "PURCHASE_LOSES");
+        return b1 && b2;
     }
 
     private void readFromCsv() {
@@ -126,8 +124,8 @@ public class StatisticManager implements Observer {
     }
 
     private boolean decrease(Drink drink, int count) {
-        int index = Store.getInstance().getAvailableDrinks().indexOf(drink);
-        Drink needUpdate = Store.getInstance().getAvailableDrinks().get(index);
+        int index = Storekeeper.getInstance().getAvailableDrinks().indexOf(drink);
+        Drink needUpdate = Storekeeper.getInstance().getAvailableDrinks().get(index);
         int available = needUpdate.getAvailablePcs();
 
         if (available >= count) {
