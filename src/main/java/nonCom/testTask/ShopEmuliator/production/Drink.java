@@ -55,11 +55,11 @@ public class Drink {
     }
 
     public void increaseAvailablePcs(int availablePcs) {
-        availablePcs += availablePcs;
+        this.availablePcs += availablePcs;
     }
 
     public void decreaseAvailablePcs(int availablePcs) {
-        availablePcs -= availablePcs;
+        this.availablePcs -= availablePcs;
     }
 
     @Override

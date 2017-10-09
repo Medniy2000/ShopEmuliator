@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 public class PaymentAccount {
 
     private static final String MONEY_FILE_PATH = Paths.get(".", "src/main/resources/finances", "AmountOfMoney.txt").normalize().toFile().getAbsolutePath();
-    private static final Integer DEFAULT_MONEY_AMOUNT = 1000;
+    private static final Integer DEFAULT_MONEY_AMOUNT = 10000;
 
     private static PaymentAccount ourInstance = null;
 
@@ -63,7 +63,7 @@ public class PaymentAccount {
             ConsoleHelper.writeMessage("-" + Math.round(amount) + " from amount of money");
             return true;
         }
-
+        System.out.println("no money");
         return false;
     }
 

@@ -3,25 +3,27 @@ package nonCom.testTask.ShopEmuliator;
 import nonCom.testTask.ShopEmuliator.production.Drink;
 import org.joda.time.DateTime;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Observable;
 
-import static nonCom.testTask.ShopEmuliator.Shop.SHOP_OPEN_HOUR;
 import static nonCom.testTask.ShopEmuliator.Shop.DATE_TIME_ZONE;
+import static nonCom.testTask.ShopEmuliator.Shop.SHOP_OPEN_HOUR;
 
 /**
  * Created by medniy on 07.10.2017.
  */
 public class BucketsGenerator extends Observable implements Runnable {
     private static final long BUCKET_CREATING_INTERVAL = initInterval();
-    private List<Drink> availableDrinks;
 
-    public BucketsGenerator(List<Drink> availableDrinks) {
-        this.availableDrinks = availableDrinks;
+
+    public BucketsGenerator() {
     }
 
     @Override
     public void run() {
-        if (availableDrinks.isEmpty()) return;
+        if (Store.getInstance().getAvailableDrinks().isEmpty()) return;
         try {
 
             while (!Thread.currentThread().isInterrupted()) {
@@ -46,18 +48,6 @@ public class BucketsGenerator extends Observable implements Runnable {
         }
     }
 
-//    private synchronized boolean isAvailable(Drink drink, int count) {
-//
-//        int index = availableDrinks.indexOf(drink);
-//        Drink availableDrink = availableDrinks.get(index);
-//        int available = availableDrink.getAvailablePcs();
-//
-//        if (available >= count) {
-//            return true;
-//        }
-//        return false;
-//    }
-
     private Map<Drink, Integer> generateBucket() {
 
         Map<Drink, Integer> result = new HashMap<>();
@@ -65,21 +55,22 @@ public class BucketsGenerator extends Observable implements Runnable {
 
         while (itemCount > 0) {
 
-            int drinkNumer = getAmount(0, availableDrinks.size() - 1);
-            Drink drink = availableDrinks.get(drinkNumer);
+            int drinkNumer = getAmount(0, Store.getInstance().getAvailableDrinks().size() - 1);
+            Drink drink = Store.getInstance().getAvailableDrinks().get(drinkNumer);
             int count = getAmount(1, itemCount);
 
-            if (isAvailable(drink,count)) {
+            if (isAvailable(drink, count)) {
                 itemCount -= count;
                 result.put(drink, count);
             }
         }
         return result;
     }
-    private synchronized boolean isAvailable(Drink drink, int count) {
 
-        int index = availableDrinks.indexOf(drink);
-        Drink availableDrink = availableDrinks.get(index);
+    private boolean isAvailable(Drink drink, int count) {
+
+        int index = Store.getInstance().getAvailableDrinks().indexOf(drink);
+        Drink availableDrink = Store.getInstance().getAvailableDrinks().get(index);
         int available = availableDrink.getAvailablePcs();
 
         if (available >= count) {
@@ -106,16 +97,16 @@ public class BucketsGenerator extends Observable implements Runnable {
 
     public long initialDelay() {
         DateTime dateTime = new DateTime(DATE_TIME_ZONE);
-        int shopOpenMinutes = SHOP_OPEN_HOUR *60+ 16;
+        int shopOpenMinutes = SHOP_OPEN_HOUR * 60;
 
         int minuteOfDay = dateTime.getMinuteOfDay();
 
         if (minuteOfDay <= shopOpenMinutes) {
-           int result = shopOpenMinutes - minuteOfDay;
+            int result = shopOpenMinutes - minuteOfDay;
             return result;
         }
 
-        return 24*60 - minuteOfDay + shopOpenMinutes;
+        return 24 * 60 - minuteOfDay + shopOpenMinutes;
     }
 
 }

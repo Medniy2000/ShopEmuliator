@@ -23,17 +23,18 @@ public class CsvHelper {
 
     private static CsvHelper ourInstance = null;
 
+
     private CsvHelper() {
     }
 
     public static CsvHelper getInstance() {
-        if (ourInstance==null){
+        if (ourInstance == null) {
             ourInstance = new CsvHelper();
         }
         return ourInstance;
     }
 
-    public List<Drink> readDrinksFromCSV(){
+    public List<Drink> readDrinksFromCSV() {
 
         List<Drink> result = new ArrayList<>();
 
@@ -81,6 +82,7 @@ public class CsvHelper {
 
     public boolean writeDrinksToCSV(List<Drink> drinks) {
         boolean result = true;
+
         try (FileWriter fileWriter = new FileWriter(CSV_FILE_PATH);
              CSVPrinter csvFilePrinter = new CSVPrinter(fileWriter, DRINKS_FORMAT)) {
             for (Drink drink : drinks) {
@@ -106,9 +108,9 @@ public class CsvHelper {
             fileWriter.flush();
             fileWriter.close();
 
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             result = false;
+            e.printStackTrace();
             ConsoleHelper.writeMessage(e.getMessage());
         }
         return result;
